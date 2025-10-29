@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import L from 'leaflet';
-import { MapContainer, TileLayer, Polyline,} from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, useMap} from 'react-leaflet';
 import AnimatedMarker from './components/AnimatedMarker'
+import 'leaflet/dist/leaflet.css';
 
 
 import "./App.css"
@@ -12,6 +13,21 @@ const vehicleIcon = L.divIcon({
     iconSize: [24, 24]
 });
 
+
+function MapResizer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const handleResize = () => map.invalidateSize();
+    setTimeout(() => map.invalidateSize(), 300);
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [map]);
+
+  return null;
+}
+
 const INITIAL_CENTER = [17.385044, 78.486671];
 
 const App = () => {
@@ -21,7 +37,6 @@ const App = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const intervalRef = useRef(null);
 
-    
     useEffect(() => {
         if (isPlaying && routeData.length > 0 && currentIndex < routeData.length - 1) {
             intervalRef.current = setInterval(() => {
@@ -62,16 +77,17 @@ const App = () => {
     return(
         <>
         <div className="container">
-            
+            <div className="map-container">
                 <MapContainer
                     center={INITIAL_CENTER}
                     zoom={15}
                     scrollWheelZoom={true}
-                    className="map-container"
+                    className="map"
                 >
+                <MapResizer />
                 <TileLayer
-                    attribution='&copy; <a href="[http://osm.org/copyright](http://osm.org/copyright)">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                   attribution='&copy; OpenStreetMap contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Polyline
                     pathOptions={{ color: 'gray', weight: 3, opacity: 0.5 }}
@@ -86,22 +102,22 @@ const App = () => {
                     <AnimatedMarker position={[currentPosition.lat, currentPosition.lng]} icon={vehicleIcon} duration={2000}/>
                 }
                 </MapContainer>
-            
+            </div>
             <div>
             <h2 className="">Vehicle Status</h2>
             <div className="">
-                <p>Coordinate: <span className="">17.2311</span></p>
+                <p>Coordinate: <span className="span">17.2311</span></p>
                 <p>Timestamp:
-                    <span className="font-medium text-gray-700">
+                    <span className="span">
                         {currentPosition ? new Date(currentPosition.timestamp).toLocaleTimeString() : 'N/A'}
                     </span>
                 </p>
                 {/* Speed calculation function goes here, returning the formatted speed */}
-                <p>Speed: <span className="font-medium text-gray-700">5 km/h</span></p>
+                <p>Speed: <span className="span">5 km/h</span></p>
             </div>
             <div>
-                <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
-                <button onClick={resetSimulation}>Reset</button>
+                <button className="play-btn" onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+                <button className="reset-btn" onClick={resetSimulation}>Reset</button>
             </div>
             </div>
         </div>

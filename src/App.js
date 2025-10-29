@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Polyline, useMap} from 'react-leaflet';
 import AnimatedMarker from './components/AnimatedMarker'
-import 'leaflet/dist/leaflet.css';
-
+import { calculateSpeedKmH } from "./components/utlis";
 
 import "./App.css"
 
@@ -86,8 +86,8 @@ const App = () => {
                 >
                 <MapResizer />
                 <TileLayer
-                   attribution='&copy; OpenStreetMap contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                     attribution='&copy; <a href="[http://osm.org/copyright](http://osm.org/copyright)">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Polyline
                     pathOptions={{ color: 'gray', weight: 3, opacity: 0.5 }}
@@ -106,14 +106,14 @@ const App = () => {
             <div>
             <h2 className="">Vehicle Status</h2>
             <div className="">
-                <p>Coordinate: <span className="span">17.2311</span></p>
+                {currentPosition &&<p>Coordinate: <span className="span">{currentPosition.lat?.toFixed(6)}, {currentPosition.lng?.toFixed(6)}</span></p>}
                 <p>Timestamp:
                     <span className="span">
                         {currentPosition ? new Date(currentPosition.timestamp).toLocaleTimeString() : 'N/A'}
                     </span>
                 </p>
                 {/* Speed calculation function goes here, returning the formatted speed */}
-                <p>Speed: <span className="span">5 km/h</span></p>
+                <p>Speed: <span className="span">{calculateSpeedKmH(currentIndex, routeData)}  km/h</span></p>
             </div>
             <div>
                 <button className="play-btn" onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>

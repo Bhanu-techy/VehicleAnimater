@@ -17,19 +17,19 @@ The application must:
 ## 2. Technical Requirements
 To successfully complete this project, the following stack will be used:
 
------------------------------------------------------------------------------------------------------------------------------
-|Category	        | Tool / Technology	 | Purpose                                                                          |
------------------------------------------------------------------------------------------------------------------------------
-|Frontend Framework | React.js	         | Building the user interface using components and state management.               |
------------------------------------------------------------------------------------------------------------------------------
-|Development Setup	| Node.js & Vite/CRA | Project scaffolding and managing dependencies.                                   |
------------------------------------------------------------------------------------------------------------------------------
-|Styling	        | Tailwind CSS	     | To quickly build a clean, usable, and responsive user interface.                 |
------------------------------------------------------------------------------------------------------------------------------
-|Mapping Library	| React-Leaflet	     | The dedicated React wrapper for the Leaflet library, simplifying map integration.|
------------------------------------------------------------------------------------------------------------------------------
-|Data Format	    | JSON             	 | To store the dummy route data (dummy-route.json).                                |
------------------------------------------------------------------------------------------------------------------------------
+___________________________________________________________________________________________________________________________
+|Category	          | Tool / Technology	 | Purpose                                                                         |
+____________________________________________________________________________________________________________________________
+|Frontend Framework | React.js	         | Building the user interface using components and state management.              |
+____________________________________________________________________________________________________________________________
+|Development Setup	| Node.js & Vite/CRA | Project scaffolding and managing dependencies.                                  |
+___________________________________________________________________________________________________________________________
+|Styling	          | Tailwind CSS	     | To quickly build a clean, usable, and responsive user interface.                |
+___________________________________________________________________________________________________________________________
+|Mapping Library  	| React-Leaflet	     | The dedicated React wrapper for the Leaflet library, simplifying map integration.|
+___________________________________________________________________________________________________________________________
+|Data Format	      | JSON             	 | To store the dummy route data (dummy-route.json).                               |
+____________________________________________________________________________________________________________________________
 
 ## 3. Step-by-Step Instructions (Using React and React-Leaflet)
 This guide assumes you are using npm or yarn and have initialized a standard React project (e.g., via Vite or Create React App).
